@@ -22,9 +22,10 @@ app.use('/api/users', require('./routes/users.js'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // ✅ Catch-all: send React index.html for non-API routes
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
