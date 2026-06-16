@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const path = require('path');
 
 dotenv.config();
 connectDB();
@@ -17,15 +18,12 @@ app.use('/api/orders', require('./routes/orders.js'));
 app.use('/api/products', require('./routes/products.js'));
 app.use('/api/users', require('./routes/users.js'));
 
+// ✅ Serve frontend build (dist folder)
+app.use(express.static(path.join(__dirname, 'dist')));
 
-
-
-
-
-
-
-app.get('/', (req, res) => {
-  res.send('Radiant Beauty Glam backend is running!');
+// ✅ Catch-all: send React index.html for non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
