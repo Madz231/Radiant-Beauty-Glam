@@ -18,13 +18,14 @@ app.use('/api/orders', require('./routes/orders.js'));
 app.use('/api/products', require('./routes/products.js'));
 app.use('/api/users', require('./routes/users.js'));
 
-// ✅ Serve frontend build (dist folder)
+// Serve frontend build
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// ✅ Catch-all: send React index.html for non-API routes
-app.get('/*', (req, res) => {
+// Catch-all: send React index.html for non-API routes
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
 
 
 const PORT = process.env.PORT || 5000;
